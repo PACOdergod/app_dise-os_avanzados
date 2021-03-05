@@ -8,12 +8,23 @@ class CircularProgPage extends StatefulWidget {
 }
 
 class _CircularProgPageState extends State<CircularProgPage> {
+  double porcentaje = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Circular'),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.ac_unit),
+        backgroundColor: Colors.cyanAccent,
+        onPressed: () {
+          setState(() {
+            porcentaje += 10;
+            if (porcentaje > 100) porcentaje = 0;
+          });
+      }),
       body: Center(
         child: Container(
           padding: EdgeInsets.all(2),
@@ -21,7 +32,7 @@ class _CircularProgPageState extends State<CircularProgPage> {
           height: 300,
           // color: Colors.amber,
           child: CustomPaint(
-            painter: _MiRadialPainter(),
+            painter: _MiRadialPainter(porcentaje),
           ),
         ),
       ),
@@ -30,6 +41,10 @@ class _CircularProgPageState extends State<CircularProgPage> {
 }
 
 class _MiRadialPainter extends CustomPainter {
+  double porcentaje;
+
+  _MiRadialPainter(this.porcentaje);
+
   @override
   void paint(Canvas canvas, Size size) {
     final lapiz = new Paint()
@@ -51,7 +66,6 @@ class _MiRadialPainter extends CustomPainter {
 
     // parte que se debe llenar
 
-    final porcentaje = 30;
     double arcAngle = 2 * pi * (porcentaje / 100);
 
     canvas.drawArc(Rect.fromCircle(center: center, radius: radio), -pi / 2,
