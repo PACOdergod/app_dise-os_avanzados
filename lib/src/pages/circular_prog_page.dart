@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -7,8 +8,29 @@ class CircularProgPage extends StatefulWidget {
   _CircularProgPageState createState() => _CircularProgPageState();
 }
 
-class _CircularProgPageState extends State<CircularProgPage> {
-  double porcentaje = 0;
+class _CircularProgPageState extends State<CircularProgPage>
+    with TickerProviderStateMixin {
+  AnimationController controller;
+  double porcentaje = 10;
+  double nuevoPorcentaje = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
+
+    controller.addListener(() {
+      porcentaje = lerpDouble(porcentaje, nuevoPorcentaje, controller.value);
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +39,20 @@ class _CircularProgPageState extends State<CircularProgPage> {
         title: Text('Circular'),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.ac_unit),
-        backgroundColor: Colors.cyanAccent,
-        onPressed: () {
-          setState(() {
-            porcentaje += 10;
-            if (porcentaje > 100) porcentaje = 0;
-          });
-      }),
+          child: Icon(Icons.ac_unit),
+          backgroundColor: Colors.purple,
+          onPressed: () {
+            setState(() {
+              porcentaje = nuevoPorcentaje;
+              nuevoPorcentaje += 10;
+              if (nuevoPorcentaje > 100) {
+                nuevoPorcentaje = 0;
+                porcentaje = 0;
+              }
+
+              controller.forward(from: 0.0);
+            });
+          }),
       body: Center(
         child: Container(
           padding: EdgeInsets.all(2),
