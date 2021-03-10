@@ -6,8 +6,10 @@ class RadialProgress extends StatefulWidget {
   // RadialProgress({Key key}) : super(key: key);
 
   final procentaje;
+  final colorPrimario;
 
-  RadialProgress({this.procentaje});
+  RadialProgress(
+      {@required this.procentaje, this.colorPrimario = Colors.purple});
 
   @override
   _RadialProgressState createState() => _RadialProgressState();
@@ -23,8 +25,8 @@ class _RadialProgressState extends State<RadialProgress>
     super.initState();
     porcentajeAnterior = widget.procentaje;
 
-    controller =
-        new AnimationController(vsync: this, duration: Duration(milliseconds:200));
+    controller = new AnimationController(
+        vsync: this, duration: Duration(milliseconds: 200));
   }
 
   @override
@@ -43,11 +45,14 @@ class _RadialProgressState extends State<RadialProgress>
     return AnimatedBuilder(
         animation: controller,
         builder: (BuildContext context, Widget child) {
-            return Container(
+          return Container(
             width: double.infinity,
             height: double.infinity,
             child: CustomPaint(
-              painter: _MiRadialPainter((widget.procentaje - diferenciaAnimar) + (diferenciaAnimar * controller.value)),
+              painter: _MiRadialPainter(
+                  (widget.procentaje - diferenciaAnimar) +
+                      (diferenciaAnimar * controller.value),
+                  widget.colorPrimario),
             ),
           );
         });
@@ -56,11 +61,17 @@ class _RadialProgressState extends State<RadialProgress>
 
 class _MiRadialPainter extends CustomPainter {
   double porcentaje;
+  final colorPrimario;
 
-  _MiRadialPainter(this.porcentaje);
+  _MiRadialPainter(this.porcentaje, this.colorPrimario);
 
   @override
   void paint(Canvas canvas, Size size) {
+    final Rect rect = new Rect.fromCircle(center: Offset(100,100), radius: 200);
+
+    final Gradient gradiente =
+        new LinearGradient(colors: [Colors.amber, Colors.purpleAccent]);
+
     final lapiz = new Paint()
       ..strokeWidth = 4
       ..color = Colors.grey
@@ -74,8 +85,9 @@ class _MiRadialPainter extends CustomPainter {
 
     //arco
     final lapizArco = new Paint()
-      ..strokeWidth = 10
-      ..color = Colors.pink
+      ..strokeWidth = 13
+      // ..color = colorPrimario
+      ..shader = gradiente.createShader(rect)
       ..style = PaintingStyle.stroke;
 
     // parte que se debe llenar
