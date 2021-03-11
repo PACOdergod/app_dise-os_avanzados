@@ -67,10 +67,11 @@ class _MiRadialPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Rect rect = new Rect.fromCircle(center: Offset(100,100), radius: 200);
+    final Rect rect =
+        new Rect.fromCircle(center: Offset(130, 80), radius: 100);
 
-    final Gradient gradiente =
-        new LinearGradient(colors: [Colors.amber, Colors.purpleAccent]);
+    final Gradient gradiente = new LinearGradient(
+        colors: [Colors.amber, Colors.purpleAccent, Colors.green]);
 
     final lapiz = new Paint()
       ..strokeWidth = 4
