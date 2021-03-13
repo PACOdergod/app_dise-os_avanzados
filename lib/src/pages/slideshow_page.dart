@@ -6,7 +6,41 @@ class SlideShowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: _Slides()),
+      body: Center(child: Column(
+        children: [
+          Expanded( child: _Slides() ),
+          _Dots()
+        ],
+      )),
+    );
+  }
+}
+
+class _Dots extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 100,
+      child: Row(
+        children: [_Punto(),_Punto(),_Punto()],
+        mainAxisAlignment: MainAxisAlignment.center,
+      ),
+    );
+  }
+}
+
+class _Punto extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      height: 15,
+      width: 15,
+      decoration: BoxDecoration(
+        color: Colors.deepPurple, 
+        shape: BoxShape.circle
+      ),
     );
   }
 }
