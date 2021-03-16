@@ -1,20 +1,25 @@
+import 'package:circular_progress/src/models/slider_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class SlideShowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Column(
-        children: [Expanded(child: _Slides()), _Dots()],
-      )),
+      body: ChangeNotifierProvider(
+        create: (_) => SliderModel(),
+        child: Center(
+            child: Column(
+          children: [Expanded(child: _Slides()), _Dots()],
+        )),
+      ),
     );
   }
 }
 
-class _Dots extends StatelessWidget {  
+class _Dots extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,12 +40,15 @@ class _Punto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pageViewIndex = Provider.of<SliderModel>(context).currentPage;
+
     return Container(
       margin: EdgeInsets.all(10),
       height: 15,
       width: 15,
-      decoration:
-          BoxDecoration(color: Colors.grey, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+          color: (pageViewIndex.round() == index) ? Colors.blue : Colors.grey,
+          shape: BoxShape.circle),
     );
   }
 }
@@ -57,7 +65,11 @@ class __SlidesState extends State<_Slides> {
   void initState() {
     super.initState();
     pageViewController.addListener(() {
-      print("${pageViewController.page}");
+      // print("${pageViewController.page}");
+      // Actulizar la instancia de mi clase}
+      // cuando esta en initState el listen debe ser false
+      Provider.of<SliderModel>(context, listen: false).currentPage =
+          pageViewController.page;
     });
   }
 
