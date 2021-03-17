@@ -42,12 +42,13 @@ class _Punto extends StatelessWidget {
   Widget build(BuildContext context) {
     final pageViewIndex = Provider.of<SliderModel>(context).currentPage;
 
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 200),
       margin: EdgeInsets.all(10),
       height: 15,
       width: 15,
       decoration: BoxDecoration(
-          color: (pageViewIndex.round() == index) ? Colors.blue : Colors.grey,
+          color: (pageViewIndex.round() == index) ? Colors.deepPurple : Colors.grey,
           shape: BoxShape.circle),
     );
   }
