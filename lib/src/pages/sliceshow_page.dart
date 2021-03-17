@@ -11,8 +11,18 @@ class SlideShowPage extends StatelessWidget {
         SvgPicture.asset('assets/svgs/2.svg'),
         SvgPicture.asset('assets/svgs/3.svg'),
         SvgPicture.asset('assets/svgs/4.svg'),
-        SvgPicture.asset('assets/svgs/5.svg'),
-      ],),),
+        // SvgPicture.asset('assets/svgs/5.svg'),
+        // SvgPicture.asset('assets/svgs/2.svg'),
+        // SvgPicture.asset('assets/svgs/3.svg'),
+        // SvgPicture.asset('assets/svgs/4.svg'),
+        // SvgPicture.asset('assets/svgs/5.svg'),
+        // SvgPicture.asset('assets/svgs/2.svg'),
+        // SvgPicture.asset('assets/svgs/3.svg'),
+        // SvgPicture.asset('assets/svgs/4.svg'),
+        // SvgPicture.asset('assets/svgs/5.svg'),
+      ],
+      color: Colors.deepPurple,
+      ),),
     );
   }
 }

@@ -4,8 +4,9 @@ import 'package:provider/provider.dart';
 
 class Slideshow extends StatelessWidget {
   final List<Widget> slides;
+  final Color color;
 
-  Slideshow({@required this.slides});
+  Slideshow({@required this.slides, this.color = Colors.blue, });
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +14,25 @@ class Slideshow extends StatelessWidget {
       create: (_) => SliderModel(),
       child: Center(
           child: Column(
-        children: [Expanded(child: _Slides(this.slides)), _Dots(this.slides.length)],
+        children: [
+          Expanded(child: _Slides(this.slides)),
+          _Dots(this.slides.length, this.color)
+        ],
       )),
     );
   }
 }
 
-class _Dots extends StatelessWidget {
-  final int cantidad;
+// TODO: cuando son muchos widgets aparece un erros
 
-  _Dots(this.cantidad);
+class _Dots extends StatelessWidget {
+  final GlobalKey dotsKey = GlobalKey();
+  final int cantidad;
+  final Color color;
+
+
+  _Dots(this.cantidad, this.color);
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +40,8 @@ class _Dots extends StatelessWidget {
       width: double.infinity,
       height: 100,
       child: Row(
-        children: List.generate(this.cantidad, (index) => _Punto(index)),
+        key: dotsKey,
+        children: List.generate(this.cantidad, (index) => _Punto(index, color: this.color,)),
         mainAxisAlignment: MainAxisAlignment.center,
       ),
     );
@@ -39,8 +50,10 @@ class _Dots extends StatelessWidget {
 
 class _Punto extends StatelessWidget {
   final int index;
+  final Color color;
 
-  _Punto(this.index);
+
+  _Punto(this.index, {this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +66,7 @@ class _Punto extends StatelessWidget {
       width: 15,
       decoration: BoxDecoration(
           color: (pageViewIndex.round() == index)
-              ? Colors.deepPurple
+              ? this.color  
               : Colors.grey,
           shape: BoxShape.circle),
     );
@@ -81,7 +94,6 @@ class __SlidesState extends State<_Slides> {
       // cuando esta en initState el listen debe ser false
       Provider.of<SliderModel>(context, listen: false).currentPage =
           pageViewController.page;
-
     });
   }
 
