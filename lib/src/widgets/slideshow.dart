@@ -1,23 +1,51 @@
-import 'package:circular_progress/src/models/slider_model.dart';
+// import 'package:circular_progress/src/models/slider_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+class _SliderModel with ChangeNotifier {
+  double _currentPage = 0;
+
+  double get currentPage => this._currentPage;
+  set currentPage(double pagina) {
+    this._currentPage = pagina;
+    notifyListeners();
+  }
+
+  Color color;
+  Color get colorP => color;
+
+
+  Color colorSec;
+  Color get colorS => colorSec;
+}
 
 class Slideshow extends StatelessWidget {
   final List<Widget> slides;
   final Color color;
+  final Color colorSec;
 
-  Slideshow({@required this.slides, this.color = Colors.blue, });
+  Slideshow({
+    @required this.slides,
+    this.color = Colors.blue,
+    this.colorSec = Colors.grey,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => SliderModel(),
-      child: Center(
-          child: Column(
-        children: [
-          Expanded(child: _Slides(this.slides)),
-          _Dots(this.slides.length, this.color)
-        ],
+      create: (_) => _SliderModel(),
+      child: Center(child: Builder(
+        builder: (BuildContext context) {
+          Provider.of<_SliderModel>(context).color = this.color;
+          Provider.of<_SliderModel>(context).colorSec = this.colorSec;
+
+          return Column(
+            children: [
+              Expanded(child: _Slides(this.slides)),
+              _Dots(this.slides.length)
+            ],
+          );
+        },
       )),
     );
   }
@@ -28,11 +56,8 @@ class Slideshow extends StatelessWidget {
 class _Dots extends StatelessWidget {
   final GlobalKey dotsKey = GlobalKey();
   final int cantidad;
-  final Color color;
 
-
-  _Dots(this.cantidad, this.color);
-
+  _Dots(this.cantidad);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +66,7 @@ class _Dots extends StatelessWidget {
       height: 100,
       child: Row(
         key: dotsKey,
-        children: List.generate(this.cantidad, (index) => _Punto(index, color: this.color,)),
+        children: List.generate(this.cantidad, (index) => _Punto(index)),
         mainAxisAlignment: MainAxisAlignment.center,
       ),
     );
@@ -50,14 +75,14 @@ class _Dots extends StatelessWidget {
 
 class _Punto extends StatelessWidget {
   final int index;
-  final Color color;
 
-
-  _Punto(this.index, {this.color});
+  _Punto(
+    this.index,
+  );
 
   @override
   Widget build(BuildContext context) {
-    final pageViewIndex = Provider.of<SliderModel>(context).currentPage;
+    final sm = Provider.of<_SliderModel>(context);
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
@@ -65,9 +90,7 @@ class _Punto extends StatelessWidget {
       height: 15,
       width: 15,
       decoration: BoxDecoration(
-          color: (pageViewIndex.round() == index)
-              ? this.color  
-              : Colors.grey,
+          color: (sm._currentPage.round() == index) ? sm.colorP : sm.colorS,
           shape: BoxShape.circle),
     );
   }
@@ -92,7 +115,7 @@ class __SlidesState extends State<_Slides> {
       // print("${pageViewController.page}");
       // Actulizar la instancia de mi clase}
       // cuando esta en initState el listen debe ser false
-      Provider.of<SliderModel>(context, listen: false).currentPage =
+      Provider.of<_SliderModel>(context, listen: false).currentPage =
           pageViewController.page;
     });
   }
