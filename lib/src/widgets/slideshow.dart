@@ -98,7 +98,7 @@ class _Punto extends StatelessWidget {
     double tam;
     Color color;
 
-    if (sm._currentPage >= index-0.5 && sm._currentPage < index+0.5) {
+    if (sm._currentPage.round() == index) {
       // este punto es el mismo del index de la imagen
       tam = sm.tamAct;
       color = sm.colorP;
