@@ -14,20 +14,28 @@ class _SliderModel with ChangeNotifier {
   Color color;
   Color get colorP => color;
 
-
   Color colorSec;
   Color get colorS => colorSec;
+
+  double _tamAct;
+  double get tamAct => _tamAct;
+  double _tamSec;
+  double get tamSec => _tamSec;
 }
 
 class Slideshow extends StatelessWidget {
   final List<Widget> slides;
   final Color color;
   final Color colorSec;
+  final double tamPri;
+  final double tamSec;
 
   Slideshow({
     @required this.slides,
     this.color = Colors.blue,
     this.colorSec = Colors.grey,
+    this.tamPri = 15,
+    this.tamSec = 15,
   });
 
   @override
@@ -38,6 +46,9 @@ class Slideshow extends StatelessWidget {
         builder: (BuildContext context) {
           Provider.of<_SliderModel>(context).color = this.color;
           Provider.of<_SliderModel>(context).colorSec = this.colorSec;
+
+          Provider.of<_SliderModel>(context)._tamAct = this.tamPri;
+          Provider.of<_SliderModel>(context)._tamSec = this.tamSec;
 
           return Column(
             children: [
@@ -84,13 +95,25 @@ class _Punto extends StatelessWidget {
   Widget build(BuildContext context) {
     final sm = Provider.of<_SliderModel>(context);
 
+    double tam;
+    Color color;
+
+    if (sm._currentPage >= index-0.5 && sm._currentPage < index+0.5) {
+      // este punto es el mismo del index de la imagen
+      tam = sm.tamAct;
+      color = sm.colorP;
+    } else {
+      tam = sm.tamSec;
+      color = sm.colorS;
+    }
+
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       margin: EdgeInsets.all(10),
-      height: 15,
-      width: 15,
+      height: tam,
+      width: tam,
       decoration: BoxDecoration(
-          color: (sm._currentPage.round() == index) ? sm.colorP : sm.colorS,
+          color: color,
           shape: BoxShape.circle),
     );
   }

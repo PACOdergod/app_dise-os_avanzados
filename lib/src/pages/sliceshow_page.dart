@@ -22,6 +22,8 @@ class SlideShowPage extends StatelessWidget {
         // SvgPicture.asset('assets/svgs/5.svg'),
       ],
       color: Colors.deepPurple,
+      tamPri: 1,
+      tamSec: 12,
       ),),
     );
   }
