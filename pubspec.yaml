@@ -32,6 +32,7 @@ dependencies:
   provider: ^5.0.0
   flutter_staggered_grid_view: 
   font_awesome_flutter:
+  animate_do:
 
 dev_dependencies:
   flutter_test:

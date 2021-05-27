@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:circular_progress/src/widgets/boton_ancho.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -33,13 +34,19 @@ class EmergencyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<BotonAncho> botonesAnchos = List.generate(items.length, (int i){
-      return BotonAncho(
-        texto: items[i].texto, 
-        icon: items[i].icon,
-        color1: items[i].color1,
-        color2: items[i].color2,
-        onPress: (){print("boton");}
+    List botonesAnchos = List.generate(items.length, (int i){
+      return FadeInLeft(
+        duration: Duration(milliseconds: 1000),
+
+        delay: Duration(milliseconds: 200),
+        
+        child: BotonAncho(
+          texto: items[i].texto, 
+          icon: items[i].icon,
+          color1: items[i].color1,
+          color2: items[i].color2,
+          onPress: (){print("boton");}
+        ),
       );
     });
 
@@ -48,10 +55,13 @@ class EmergencyPage extends StatelessWidget {
       body: Stack(children: [
 
         Container(
-          child: ListView(children: [
-            SizedBox(height: 250,),
-            ...botonesAnchos
-          ]),
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            children: [
+              SizedBox(height: 250,),
+              ...botonesAnchos
+            ]
+          ),
         ),
 
         IconHeader(),
@@ -90,7 +100,18 @@ class IconHeader extends StatelessWidget {
             TextStyle( fontSize: 20, color: fontColor, fontWeight: FontWeight.bold )),
 
           FaIcon(FontAwesomeIcons.plus, size: 80, color: Colors.white)
-        ],)
+        ],),
+
+        Positioned(
+          right: -10,
+          top: 30,
+          child: RawMaterialButton(
+            child: FaIcon(FontAwesomeIcons.ellipsisV, color: Colors.white,),
+            onPressed: (){},
+            shape: CircleBorder(),
+            padding: EdgeInsets.all(15),
+          )
+        ),
 
     ],);
   }
