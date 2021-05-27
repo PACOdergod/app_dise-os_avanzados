@@ -26,15 +26,15 @@ class PinterestMenu extends StatelessWidget {
 
 Widget _createMenu(List<PinterestButton> items) {
   return Container(
-        width: 250,
-        height: 60,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(100)),
-            boxShadow: [
-              BoxShadow(color: Colors.black38, blurRadius: 10, spreadRadius: -5)
-            ]),
-        child: _menuButton(items));
+    width: 250,
+    height: 60,
+    decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(100)),
+        boxShadow: [
+          BoxShadow(color: Colors.black38, blurRadius: 10, spreadRadius: -5)
+        ]),
+      child: _menuButton(items));
 }
 
 Row _menuButton(List<PinterestButton> items) {

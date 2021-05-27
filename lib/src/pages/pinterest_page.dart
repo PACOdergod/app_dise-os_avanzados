@@ -1,7 +1,7 @@
 import 'package:circular_progress/src/widgets/pinterest_menu.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PinterstPage extends StatelessWidget {
@@ -21,7 +21,6 @@ class _MenuLocation extends StatefulWidget {
   @override
   __MenuLocationState createState() => __MenuLocationState();
 }
-
 class __MenuLocationState extends State<_MenuLocation> {
   @override
   Widget build(BuildContext context) {
@@ -37,11 +36,11 @@ class __MenuLocationState extends State<_MenuLocation> {
   }
 }
 
+
 class PinterestGrid extends StatefulWidget {
   @override
   _PinterestGridState createState() => _PinterestGridState();
 }
-
 class _PinterestGridState extends State<PinterestGrid> {
   final List<int> items = List.generate(100, (index) => index);
   var controller = new ScrollController();
@@ -51,7 +50,7 @@ class _PinterestGridState extends State<PinterestGrid> {
   void initState() {
     super.initState();
     controller.addListener(() {
-      if (controller.offset > scrollAnt) {
+      if (controller.offset > scrollAnt && controller.offset >0) {
         // ha hecho un scroll hacia abajo
         // debe ocultar el menu
         Provider.of<_MenuModel>(context, listen: false).mostrar = false;
@@ -92,10 +91,12 @@ class _PinterestItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
+      margin: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Colors.green,
+        borderRadius: BorderRadius.all(Radius.circular(10))
+      ),
+      
         child: new Center(
           child: new CircleAvatar(
             backgroundColor: Colors.white,
