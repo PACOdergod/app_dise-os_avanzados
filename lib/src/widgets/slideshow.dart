@@ -11,15 +11,15 @@ class _SliderModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Color color;
+  late Color color;
   Color get colorP => color;
 
-  Color colorSec;
+  late Color colorSec;
   Color get colorS => colorSec;
 
-  double _tamAct;
+  late double _tamAct;
   double get tamAct => _tamAct;
-  double _tamSec;
+  late double _tamSec;
   double get tamSec => _tamSec;
 }
 
@@ -31,7 +31,7 @@ class Slideshow extends StatelessWidget {
   final double tamSec;
 
   Slideshow({
-    @required this.slides,
+    required this.slides,
     this.color = Colors.blue,
     this.colorSec = Colors.grey,
     this.tamPri = 15,
@@ -139,7 +139,7 @@ class __SlidesState extends State<_Slides> {
       // Actulizar la instancia de mi clase}
       // cuando esta en initState el listen debe ser false
       Provider.of<_SliderModel>(context, listen: false).currentPage =
-          pageViewController.page;
+          pageViewController.page!;
     });
   }
 

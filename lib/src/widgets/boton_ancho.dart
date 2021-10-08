@@ -5,12 +5,12 @@ class BotonAncho extends StatelessWidget {
 
   final IconData icon;
   final String texto;
-  final Function onPress;
+  final void Function() onPress;
   final Color color1, color2;
 
   const BotonAncho({
-    @required this.texto, 
-    @required this.onPress,
+    required this.texto, 
+    required this.onPress,
     this.icon = Icons.add,
     this.color1 = const Color(0xff6989f5), 
     this.color2 = const Color(0xff906EF5),

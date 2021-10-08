@@ -3,8 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class RadialProgress extends StatefulWidget {
-  // RadialProgress({Key key}) : super(key: key);
-
   final procentaje;
   final colorPrimario;
 
@@ -17,8 +15,8 @@ class RadialProgress extends StatefulWidget {
 
 class _RadialProgressState extends State<RadialProgress>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  double porcentajeAnterior;
+  late AnimationController controller;
+  late double porcentajeAnterior;
 
   @override
   void initState() {
@@ -44,7 +42,7 @@ class _RadialProgressState extends State<RadialProgress>
 
     return AnimatedBuilder(
         animation: controller,
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget? child) {
           return Container(
             width: double.infinity,
             height: double.infinity,

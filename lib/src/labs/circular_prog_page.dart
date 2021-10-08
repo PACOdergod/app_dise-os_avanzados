@@ -10,7 +10,7 @@ class CircularProgPage extends StatefulWidget {
 
 class _CircularProgPageState extends State<CircularProgPage>
     with TickerProviderStateMixin {
-  AnimationController controller;
+  late AnimationController controller;
   double porcentaje = 10;
   double nuevoPorcentaje = 0.0;
 
@@ -21,7 +21,7 @@ class _CircularProgPageState extends State<CircularProgPage>
         AnimationController(vsync: this, duration: Duration(seconds: 1));
 
     controller.addListener(() {
-      porcentaje = lerpDouble(porcentaje, nuevoPorcentaje, controller.value);
+      porcentaje = lerpDouble(porcentaje, nuevoPorcentaje, controller.value)!;
       setState(() {});
     });
   }

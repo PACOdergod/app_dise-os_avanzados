@@ -1,7 +1,7 @@
 import 'package:circular_progress/src/models/slider_model.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:provider/provider.dart';
 
 class SlideShowPage extends StatelessWidget {
@@ -70,7 +70,7 @@ class __SlidesState extends State<_Slides> {
       // Actulizar la instancia de mi clase}
       // cuando esta en initState el listen debe ser false
       Provider.of<SliderModel>(context, listen: false).currentPage =
-          pageViewController.page;
+          pageViewController.page!;
     });
   }
 
