@@ -1,24 +1,25 @@
-// import 'package:circular_progress/src/labs/circular_prog_page.dart';
-// import 'package:circular_progress/src/pages/graficas_circulares_page.dart';
-// import 'package:circular_progress/src/pages/sliceshow_page.dart';
-// import 'package:circular_progress/src/labs/slideshow_page.dart';
-// import 'package:circular_progress/src/pages/emerge_page.dart';
-import 'package:circular_progress/src/pages/sliver_list_page.dart';
+import 'package:circular_progress/src/pages/launcher_page.dart';
+import 'package:circular_progress/src/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+  ChangeNotifierProvider(
+    create: (_)=> new ThemeProvider(),
+    child: MyApp()
+  )
+);
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeProvider>(context).currentTheme;
+
     return MaterialApp(
+      theme: theme,
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: SliverListPage()
-      // initialRoute: 'circular_prog',
-      // routes:
-      //   'circular_prog': (BuildContext context) => GraficasCirculares(),
-      // },
+      home: LauncherPage()
     );
   }
 }
